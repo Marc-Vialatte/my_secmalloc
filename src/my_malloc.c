@@ -1,4 +1,4 @@
-#include "my_secmalloc.h"
+#include "../include/my_secmalloc.h"
 
 void    *my_malloc(size_t size) 
 {
