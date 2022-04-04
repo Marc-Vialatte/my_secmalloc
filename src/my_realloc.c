@@ -14,7 +14,9 @@ void    *my_realloc(void *ptr, size_t size)
     }
 
     // Get the heap
-    struct my_heap *heap = ptr - sizeof(struct my_heap);
+    struct my_heap *heap = NULL;
+    *heap = find_heap(ptr);
+    
     // If the size is the same, return the pointer
     if (heap->size >= size) 
     {

@@ -3,7 +3,8 @@
 void    *my_calloc(size_t nmemb, size_t size) 
 {
     // Validate input
-    if (nmemb == 0 || size == 0) {
+    if (nmemb == 0 || size == 0) 
+    {
         return NULL;
     }
     // Get the size
