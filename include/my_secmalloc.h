@@ -14,7 +14,7 @@ struct  my_heap
     struct  my_heap *next;
 };
 
-struct my_heap *my_heap_list = NULL;
+struct my_heap *my_heap_list;
 
 // Declare the functions
 void    *my_malloc(size_t size);

@@ -4,8 +4,10 @@ CFLAGS=-Wall -Werror -Wextra -std=c99 -pedantic
 SRCS=src/*.c
 OBJS=$(SRCS:.c=.o)
 
+OUT=out/my_secmalloc.a
+
 all:
-	$(CC) -o $(SRCS) test/main.c
+	$(CC) $(SRCS) test/main.c
 
 static:
 	$(CC) -c $(CFLAGS) $(SRCS) src/
