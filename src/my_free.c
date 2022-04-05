@@ -11,6 +11,12 @@ void    my_free(void *ptr)
     // Get the heap
     struct my_heap *heap = NULL;
     heap = find_heap(ptr);
+    // If the heap is not found, return
+    if (heap == NULL) 
+    {
+        return;
+    }
+
     munmap(ptr, heap->size);
 
     // If the heap is the only one in the list, set the list to NULL
