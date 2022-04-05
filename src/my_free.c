@@ -10,7 +10,7 @@ void    my_free(void *ptr)
 
     // Get the heap
     struct my_heap *heap = NULL;
-    *heap = find_heap(ptr);
+    heap = find_heap(ptr);
     munmap(ptr, heap->size);
 
     // If the heap is the only one in the list, set the list to NULL
@@ -35,4 +35,6 @@ void    my_free(void *ptr)
         heap->prev->next = heap->next;
         heap->next->prev = heap->prev;
     }
+
+    munmap(heap, sizeof(struct my_heap));
 }

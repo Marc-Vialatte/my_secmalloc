@@ -7,7 +7,7 @@ OBJS=$(SRCS:.c=.o)
 OUT=out/my_secmalloc.a
 
 all:
-	$(CC) $(SRCS) test/main.c
+	$(CC) $(CFLAGS) $(SRCS) test/main.c
 
 static:
 	$(CC) -c $(CFLAGS) $(SRCS) src/

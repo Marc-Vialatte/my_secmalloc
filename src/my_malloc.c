@@ -12,6 +12,11 @@ void *my_malloc(size_t size)
     // If the heap_list is NULL, initialize it
     if (heap == NULL) 
     {
+        heap = mmap(NULL, sizeof(struct my_heap), PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+        if (heap == MAP_FAILED) 
+        {
+            return NULL;
+        }
         void *ptr = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
         if (ptr == MAP_FAILED) 
         {
@@ -29,7 +34,11 @@ void *my_malloc(size_t size)
     {
         heap = heap->next;
     }
-    struct my_heap *new_heap = NULL;
+    struct my_heap *new_heap = mmap(NULL, sizeof(struct my_heap), PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+    if (heap == MAP_FAILED) 
+    {
+        return NULL;
+    }
     void *ptr = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
     if (ptr == MAP_FAILED) 
     {
