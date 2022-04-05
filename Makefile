@@ -7,11 +7,11 @@ OBJSDIR=obj
 OBJS=$(SRCS:.c=.o)
 
 LIBDIR=lib
-STATICLIB=my_secmalloc.a
-DYNAMICLIB=my_secmalloc.so
+STATICLIB=libmy_secmalloc.a
+DYNAMICLIB=libmy_secmalloc.so
 
 all:
-	$(CC) $(CFLAGS) $(SRCS) test/main.c
+	$(CC) $(CFLAGS) $(SRCSDIR)/$(SRCS) test/main.c
 
 static:
 	$(CC) -c $(CFLAGS) $(SRCSDIR)/$(SRCS)
