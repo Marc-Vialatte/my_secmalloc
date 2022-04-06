@@ -41,7 +41,7 @@ void    *my_calloc(size_t nmemb, size_t size)
     my_memset(ptr, 0, total_size);
 
     log_file = fopen(MSM_OUTPUT, "a");
-    fprintf(log_file, "my_calloc: %zu %zu\n", nmemb, size);
+    fprintf(log_file, "my_calloc: %zu %zu %p\n", nmemb, size, ptr);
     fclose(log_file);
 
     return ptr;

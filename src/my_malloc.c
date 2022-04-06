@@ -45,7 +45,7 @@ void *my_malloc(size_t size)
         my_heap_list = heap;
 
         log_file = fopen(MSM_OUTPUT, "a");
-        fprintf(log_file, "my_malloc: %zu %zu\n", size, heap->size);
+        fprintf(log_file, "my_malloc: %zu %p\n", size, ptr);
         fclose(log_file);
 
         return ptr;
@@ -75,7 +75,6 @@ void *my_malloc(size_t size)
     }
     int *canary_ptr = (int*)((char*)ptr + size + sizeof(int));
 
-
     new_heap->data = ptr;
     new_heap->size = size;
     new_heap->prev = heap;
@@ -87,7 +86,7 @@ void *my_malloc(size_t size)
     heap->next = new_heap;
     
     log_file = fopen(MSM_OUTPUT, "a");
-    fprintf(log_file, "my_malloc: %zu %zu\n", size, heap->size);
+    fprintf(log_file, "my_malloc: %zu %p\n", size, ptr);
     fclose(log_file);
 
     return ptr;

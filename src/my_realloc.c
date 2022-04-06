@@ -1,5 +1,19 @@
 #include "../include/my_secmalloc.h"
 
+static struct my_heap *find_heap(void *ptr)
+{
+    struct my_heap *heap = my_heap_list;
+    while (heap != NULL)
+    {
+        if (heap->data == ptr)
+        {
+            return heap;
+        }
+        heap = heap->next;
+    }
+    return heap;
+}
+
 static void    my_memcpy(void *dest, void *src, int size)
 {
     char    *ptr_dest;
@@ -46,7 +60,7 @@ void    *my_realloc(void *ptr, size_t size)
     if (heap->size >= size) 
     {
         log_file = fopen(MSM_OUTPUT, "a");
-        fprintf(log_file, "my_realloc: %p %zu\n", ptr, size);
+        fprintf(log_file, "my_realloc: %zu %p\n", size, ptr);
         fclose(log_file);
 
         return ptr;
@@ -66,7 +80,7 @@ void    *my_realloc(void *ptr, size_t size)
     my_free(ptr);
 
     log_file = fopen(MSM_OUTPUT, "a");
-    fprintf(log_file, "my_realloc: %p %zu\n", ptr, size);
+    fprintf(log_file, "my_realloc: %zu %p\n", size, new_ptr);
     fclose(log_file);
 
     return new_ptr;

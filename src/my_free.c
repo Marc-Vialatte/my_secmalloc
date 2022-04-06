@@ -1,5 +1,19 @@
 #include "../include/my_secmalloc.h"
 
+static struct my_heap *find_heap(void *ptr)
+{
+    struct my_heap *heap = my_heap_list;
+    while (heap != NULL)
+    {
+        if (heap->data == ptr)
+        {
+            return heap;
+        }
+        heap = heap->next;
+    }
+    return heap;
+}
+
 void    my_free(void *ptr) 
 {
     FILE* log_file;
@@ -33,7 +47,7 @@ void    my_free(void *ptr)
     if (*canary != heap->canary) 
     {
         log_file = fopen(MSM_OUTPUT, "a");
-        fprintf(log_file, "my_free: %p corrupted\n", ptr);
+        fprintf(log_file, "my_free: %p heap overflow\n", ptr);
         fclose(log_file);
     }
 

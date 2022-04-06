@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-Wall -Wextra -std=c99 -pedantic -fvisibility=hidden 
+CFLAGS=-Wall -Werror -Wextra -std=c99 -pedantic
 
 SRCSDIR=src
 SRCS=*.c
