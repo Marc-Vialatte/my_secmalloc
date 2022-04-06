@@ -6,6 +6,7 @@
 #include <sys/mman.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 // Define the heap structure
 struct  my_heap 
@@ -14,6 +15,7 @@ struct  my_heap
     size_t  size;
     struct  my_heap *prev;
     struct  my_heap *next;
+    int canary;
 };
 
 struct my_heap *my_heap_list;

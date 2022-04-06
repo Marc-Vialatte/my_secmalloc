@@ -10,7 +10,7 @@ void    my_free(void *ptr)
         log_file = fopen(MSM_OUTPUT, "a");
         fprintf(log_file, "my_free: invalid pointer\n");
         fclose(log_file);
-        
+
         return;
     }
 
@@ -27,7 +27,17 @@ void    my_free(void *ptr)
         return;
     }
 
-    munmap(ptr, heap->size);
+    // Check if the heap is corrupted
+    int *canary = (int*)((char*)ptr + heap->size);
+
+    if (*canary != heap->canary) 
+    {
+        log_file = fopen(MSM_OUTPUT, "a");
+        fprintf(log_file, "my_free: %p corrupted\n", ptr);
+        fclose(log_file);
+    }
+
+    munmap(ptr, (heap->size + sizeof(int)));
 
     // If the heap is the only one in the list, set the list to NULL
     if (heap->prev == NULL && heap->next == NULL) 

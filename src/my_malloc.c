@@ -23,7 +23,7 @@ void *my_malloc(size_t size)
 
             return NULL;
         }
-        void *ptr = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+        void *ptr = mmap(NULL, (size + sizeof(int)), PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
         if (ptr == MAP_FAILED) 
         {
             log_file = fopen(MSM_OUTPUT, "a");
@@ -32,10 +32,16 @@ void *my_malloc(size_t size)
             
             return NULL;
         }
+        int *canary_ptr = (int*)((char*)ptr + size);
+
         heap->data = ptr;
-        heap->size = size;
+        heap->size =  size;
         heap->prev = NULL;
         heap->next = NULL;
+        heap->canary = rand();
+
+        *canary_ptr = heap->canary;
+
         my_heap_list = heap;
 
         log_file = fopen(MSM_OUTPUT, "a");
@@ -58,7 +64,7 @@ void *my_malloc(size_t size)
         
         return NULL;
     }
-    void *ptr = mmap(NULL, size, PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
+    void *ptr = mmap(NULL, (size + 2 * sizeof(int)), PROT_READ | PROT_WRITE, MAP_PRIVATE | MAP_ANONYMOUS, -1, 0);
     if (ptr == MAP_FAILED) 
     {
         log_file = fopen(MSM_OUTPUT, "a");
@@ -67,16 +73,22 @@ void *my_malloc(size_t size)
         
         return NULL;
     }
+    int *canary_ptr = (int*)((char*)ptr + size + sizeof(int));
+
+
     new_heap->data = ptr;
     new_heap->size = size;
     new_heap->prev = heap;
     new_heap->next = NULL;
+    new_heap->canary = rand();
+
+    *canary_ptr = heap->canary;
+
     heap->next = new_heap;
     
     log_file = fopen(MSM_OUTPUT, "a");
     fprintf(log_file, "my_malloc: %zu %zu\n", size, heap->size);
     fclose(log_file);
-
 
     return ptr;
 }
