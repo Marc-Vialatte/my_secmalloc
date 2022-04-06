@@ -2,9 +2,15 @@
 
 void    my_free(void *ptr) 
 {
+    FILE* log_file;
+
     // Validate input
     if (ptr == NULL) 
     {
+        log_file = fopen(MSM_OUTPUT, "a");
+        fprintf(log_file, "my_free: invalid pointer\n");
+        fclose(log_file);
+        
         return;
     }
 
@@ -14,6 +20,10 @@ void    my_free(void *ptr)
     // If the heap is not found, return
     if (heap == NULL) 
     {
+        log_file = fopen(MSM_OUTPUT, "a");
+        fprintf(log_file, "my_free: %p not found\n", ptr);
+        fclose(log_file);
+
         return;
     }
 
@@ -43,4 +53,8 @@ void    my_free(void *ptr)
     }
 
     munmap(heap, sizeof(struct my_heap));
+
+    log_file = fopen(MSM_OUTPUT, "a");
+    fprintf(log_file, "my_free: %p\n", ptr);
+    fclose(log_file);
 }

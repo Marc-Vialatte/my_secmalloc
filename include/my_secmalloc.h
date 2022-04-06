@@ -1,9 +1,11 @@
 #ifndef _SECMALLOC_H
 #define _SECMALLOC_H
 
+#define MSM_OUTPUT "logs.txt"
+
 #include <sys/mman.h>
 #include <unistd.h>
-#include <string.h>
+#include <stdio.h>
 
 // Define the heap structure
 struct  my_heap 

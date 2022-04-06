@@ -1,0 +1,12 @@
+my_free: 0x10e8a2000
+my_malloc: 4
+my_free: 0x1053e3000
+my_calloc: 1 4
+my_malloc: 4
+my_free: 0x600003a94000
+my_free: 0x1053e3000
+my_malloc: 15
+my_realloc: 0x1053e3000 25
+my_malloc: 25
+my_free: 0x1053e3000
+my_free: 0x1053e5000
