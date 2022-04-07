@@ -10,8 +10,10 @@ LIBDIR=lib
 STATICLIB=libmy_secmalloc.a
 DYNAMICLIB=libmy_secmalloc.so
 
-all:
-	$(CC) $(CFLAGS) $(SRCSDIR)/$(SRCS) test/main.c
+TESTDIR=test
+
+build:
+	$(CC) $(CFLAGS) $(SRCSDIR)/$(SRCS) test/test.c -o $(TESTDIR)/test
 
 static:
 	$(CC) -c $(CFLAGS) $(SRCSDIR)/$(SRCS)
@@ -22,3 +24,13 @@ dynamic:
 	$(CC) -c $(CFLAGS) $(SRCSDIR)/$(SRCS)
 	mv $(OBJS) $(OBJSDIR)
 	ar rcs $(LIBDIR)/$(DYNAMICLIB) $(OBJSDIR)/$(OBJS)
+
+testbuild:
+	./$(TESTDIR)/test
+
+clean:
+	-rm $(TESTDIR)/test
+	-rm logs/logs.txt
+	-rm $(OBJSDIR)/*.o
+	-rm $(LIBDIR)/*.a
+	-rm $(LIBDIR)/*.so

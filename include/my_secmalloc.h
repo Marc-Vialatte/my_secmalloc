@@ -1,7 +1,7 @@
 #ifndef _SECMALLOC_H
 #define _SECMALLOC_H
 
-#define MSM_OUTPUT "logs.txt"
+#define MSM_OUTPUT "logs/logs.txt"
 
 #include <sys/mman.h>
 #include <unistd.h>
