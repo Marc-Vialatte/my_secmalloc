@@ -35,7 +35,7 @@ void    my_free(void *ptr)
     if (heap == NULL) 
     {
         log_file = fopen(MSM_OUTPUT, "a");
-        fprintf(log_file, "my_free: %p not found\n", ptr);
+        fprintf(log_file, "my_free: %p double free\n", ptr);
         fclose(log_file);
 
         return;

@@ -7,10 +7,20 @@ int main ()
 {
     // Malloc
     int *ptr = my_malloc(sizeof(int));
+    int *ptr1 = my_malloc(sizeof(int));
+
     *ptr = 2600;
     printf("my_malloc: %d\n", *ptr);
     my_free(ptr);
     printf("my_malloc: %p\n", (void*)ptr);
+    my_free(ptr);
+
+    *ptr1 = 2600;
+    printf("my_malloc: %d\n", *ptr1);
+    int *overflow = ptr1 + sizeof(int);
+    *overflow = 2600;
+    printf("my_malloc: %d\n", *overflow);
+    my_free(ptr1);
     
     // Calloc
     int *ptr2 = my_calloc(5, sizeof(int));

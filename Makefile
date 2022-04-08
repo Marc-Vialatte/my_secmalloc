@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-Wall -Werror -Wextra -pedantic -fcommon
+CFLAGS=-Wall -Werror -Wextra -pedantic -fcommon -fvisibility=hidden
 
 SRCSDIR=src
 SRCS=*.c
@@ -12,9 +12,12 @@ DYNAMICLIB=libmy_secmalloc.so
 
 TESTDIR=test
 
-build:
-	-make clean
+all: init clean build static dynamic testbuild
+
+init:
 	-mkdir logs obj lib
+
+build:
 	$(CC) $(CFLAGS) $(SRCSDIR)/$(SRCS) test/test.c -o $(TESTDIR)/test
 
 static:
@@ -27,7 +30,8 @@ dynamic:
 	mv $(OBJS) $(OBJSDIR)
 	ar rcs $(LIBDIR)/$(DYNAMICLIB) $(OBJSDIR)/$(OBJS)
 
-testbuild:
+tests:
+	-rm logs/logs.txt
 	./$(TESTDIR)/test
 
 clean:
