@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "../include/my_secmalloc.h"
-#include "string.h"
+#include <string.h>
 
 int main () 
 {

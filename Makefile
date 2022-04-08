@@ -1,5 +1,5 @@
 CC=gcc
-CFLAGS=-Wall -Werror -Wextra -std=c99 -pedantic
+CFLAGS=-Wall -Werror -Wextra -pedantic -fcommon
 
 SRCSDIR=src
 SRCS=*.c
@@ -13,6 +13,8 @@ DYNAMICLIB=libmy_secmalloc.so
 TESTDIR=test
 
 build:
+	-make clean
+	-mkdir logs obj lib
 	$(CC) $(CFLAGS) $(SRCSDIR)/$(SRCS) test/test.c -o $(TESTDIR)/test
 
 static:
